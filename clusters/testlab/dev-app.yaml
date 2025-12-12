@@ -4,6 +4,8 @@ metadata:
   name: app-dev
   namespace: flux-system
 spec:
+  dependsOn:              # <--- ДОДАТИ ЦЕ
+    - name: infrastructure
   interval: 1m
   retryInterval: 1m
   path: "./overlays/development" # Шлях у Git
