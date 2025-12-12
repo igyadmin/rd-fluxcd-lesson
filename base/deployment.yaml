@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: course-app
-        image: igyadmin/course-app:v1 
+        image: igyadmin/course-app-main:v1.0
         ports:
         - containerPort: 8080
         env:
