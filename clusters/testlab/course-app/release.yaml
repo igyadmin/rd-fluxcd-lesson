@@ -28,7 +28,7 @@ spec:
 
   # Ваші Values (перевизначення)
   values:
-    replicaCount: 5
+    replicaCount: 7
     redis:
       enabled: false # Вимикаємо вбудований, бо у нас є Dragonfly
     appConfig:
