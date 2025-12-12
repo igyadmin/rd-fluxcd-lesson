@@ -6,6 +6,8 @@ metadata:
   namespace: testlab
 spec:
   interval: 5m
+  driftDetection:
+    mode: enabled
   # Як поводитися при оновленні (аналог helm upgrade --install)
   install:
     remediation:
