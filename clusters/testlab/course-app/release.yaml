@@ -28,7 +28,14 @@ spec:
 
   # Ваші Values (перевизначення)
   values:
-    replicaCount: 7
+    replicaCount: 5
+    resources:
+      requests:
+        cpu: 50m     # Гарантований мінімум (щоб Kubernetes знайшов місце на ноді)
+        memory: 64Mi
+      limits:
+        cpu: 250m    # Жорстка стеля (щоб не заважати сусідам)
+        memory: 128Mi
     redis:
       enabled: false # Вимикаємо вбудований, бо у нас є Dragonfly
     appConfig:
