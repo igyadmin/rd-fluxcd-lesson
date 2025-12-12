@@ -4,12 +4,14 @@ metadata:
   name: app-prod
   namespace: flux-system
 spec:
-  dependsOn:              # <--- ДОДАТИ ЦЕ
+  dependsOn:
     - name: infrastructure
-  interval: 1m
+  interval: 5m
   retryInterval: 1m
   path: "./overlays/production"
   prune: true
+  wait: true
+  timeout: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system

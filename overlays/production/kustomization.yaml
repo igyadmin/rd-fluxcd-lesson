@@ -11,6 +11,3 @@ resources:
 
 patches:
 - path: patch-resources.yaml
-
-# Flux HPA конфліктує з полем replicas в Deployment, 
-# тому ми не ставимо replicas: 3 тут явно, HPA сам це зробить (minReplicas: 3)

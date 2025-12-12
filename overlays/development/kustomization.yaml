@@ -8,7 +8,6 @@ resources:
 - namespace.yaml
 - dragonfly.yaml
 
-# Модифікації для Dev
 patches:
 - target:
     kind: Ingress
@@ -18,7 +17,6 @@ patches:
       path: /spec/rules/0/host
       value: dev-course-app.k8s.com822.dom
 
-# Кількість реплік (економимо ресурси)
 replicas:
 - name: course-app
   count: 1

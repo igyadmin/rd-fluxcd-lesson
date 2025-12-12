@@ -1,8 +1,6 @@
-# apps/development/namespace.yaml
 apiVersion: v1
 kind: Namespace
 metadata:
   name: development
   labels:
-    # Корисно для моніторингу або політик
-    environment: development
+     environment: development
