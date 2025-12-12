@@ -5,6 +5,7 @@ namespace: development
 
 resources:
 - ../../base
+  namespace.yaml
 - dragonfly.yaml
 
 # Модифікації для Dev
