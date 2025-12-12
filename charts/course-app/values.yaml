@@ -1,0 +1,93 @@
+replicaCount: 10
+
+image:
+  repository: igyadmin/course-app-main
+  pullPolicy: Always
+  tag: "v1.0"
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
+
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  
+  hosts:
+    - host: courseapp.k8s.com822.dom
+      paths:
+        - path: /
+          pathType: Prefix
+
+  tls:
+    - secretName: course-app-tls
+      hosts:
+        - courseapp.k8s.com822.dom
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 256Mi
+
+probes:
+  liveness:
+    path: /healthz
+    initialDelaySeconds: 15
+    periodSeconds: 10
+    timeoutSeconds: 3
+    failureThreshold: 3
+  readiness:
+    path: /readyz
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    timeoutSeconds: 3
+    failureThreshold: 3
+
+appConfig:
+#  redisHost: "course-app-redis-master.testlab.svc.k8s.com822.dom"
+  redisHost: "dragonfly-sample.testlab.svc.k8s.com822.dom"
+  redisPort: 6379
+  password: ""
+
+redis:
+  enabled: false
+#  metrics:
+#    enabled: true
+#    image:
+#      registry: public.ecr.aws
+#      repository: bitnami/redis-exporter
+#      tag: "latest" # Можна не вказувати, візьме дефолтний з чарту
+#      pullPolicy: IfNotPresent
+
+#    # 3. Налаштування ServiceMonitor для Prometheus Operator
+#    serviceMonitor:
+#      enabled: true
+#      namespace: "monitoring" # Де шукати сам ServiceMonitor
+#      
+#      # Додаємо "магічний" лейбл, щоб Prometheus побачив цей монітор
+#      labels:
+#        release: kube-stack
+
+#      # Кажемо монітору дивитися в неймспейс testlab (де живе Redis)
+#      namespaceSelector:
+#        matchNames:
+#          - testlab
+#  architecture: standalone
+#  auth:
+#    enabled: false
+#  master:
+#    persistence:
+#      enabled: true
+#      storageClass: "default"
+#      size: 1Gi
+#  image:
+#    registry: docker.io
+#    repository: bitnami/redis
+#    tag: "latest"
+#    pullPolicy: IfNotPresent

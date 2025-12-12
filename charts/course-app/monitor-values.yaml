@@ -1,0 +1,40 @@
+alertmanager:
+  config:
+    global:
+      resolve_timeout: 5m
+    
+    # Головний маршрутизатор
+    route:
+      group_by: ['namespace', 'alertname']
+      group_wait: 30s
+      group_interval: 5m
+      repeat_interval: 12h
+      receiver: 'discord-webhook' # Куди слати за замовчуванням
+      
+      # (Опціонально) Ігнорувати технічні алери "Watchdog" (це пінг "я живий")
+      # Якщо хочете бачити все - видаліть блок routes нижче
+      routes:
+      - matchers:
+          - alertname = "Watchdog"
+        receiver: 'null'
+
+    receivers:
+    # 1. "Чорна діра" для сміття
+    - name: 'null'
+    
+    # 2. Ваш Discord
+    - name: 'discord-webhook'
+      discord_configs:
+      - webhook_url: 'https://discord.com/api/webhooks/1446909039752642572/_FfGVWsKQ8k-jgqciEuFSJcPFWQSx1sLaH4_Q_eEQ9SrqsTtSId1NnA4amFn-JdHeNAu' # <--- ВСТАВТЕ СЮДИ
+        send_resolved: true # Слати повідомлення "Все полагоджено" (зелене)
+        title: '{{ template "slack.default.title" . }}'
+        message: '{{ template "slack.default.text" . }}'
+
+kubeControllerManager:
+  enabled: false
+kubeScheduler:
+  enabled: false
+kubeEtcd:
+  enabled: false
+kubeProxy:
+  enabled: false
