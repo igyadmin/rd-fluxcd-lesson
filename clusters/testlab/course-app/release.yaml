@@ -28,7 +28,7 @@ spec:
 
   # Ваші Values (перевизначення)
   values:
-    replicaCount: 5
+    replicaCount: 10
     resources:
       requests:
         cpu: 50m     # Гарантований мінімум (щоб Kubernetes знайшов місце на ноді)
